@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Interactivity & Form Validation Suite | Codveda Level 1 Task 3</title>
+  <meta name="description" content="Codveda Web Development Internship - Level 1 Task 3: Interactive elements including custom dropdowns, accessible modal, state counters, and real-time form validation.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="title-area">
+        <h1>JavaScript Interactivity & Validation Suite</h1>
+        <p>Codveda Web Development Internship • Level 1 Task 3</p>
+      </div>
+      <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle dark/light mode">🌙 Dark Mode</button>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="dashboard-grid">
+      <!-- Left Column: Interactive UI Components -->
+      <section>
+        <!-- Dropdown Card -->
+        <div class="card">
+          <h2 class="card-title"><span>📂</span> Custom Interactive Dropdown</h2>
+          <p class="card-subtitle">Dynamic selection component with outside-click dismissal and state persistence.</p>
+          
+          <div class="custom-dropdown-wrap">
+            <button type="button" class="dropdown-trigger" id="dropdown-trigger">
+              <span id="dropdown-selected-text">Choose Internship Specialization...</span>
+              <span class="arrow">▼</span>
+            </button>
+            <ul class="dropdown-menu" id="dropdown-menu">
+              <li class="dropdown-item" data-value="web-dev">💻 Full Stack Web Development</li>
+              <li class="dropdown-item" data-value="react">⚛️ Frontend React & Modern UI</li>
+              <li class="dropdown-item" data-value="backend">⚙️ Backend Node.js & REST APIs</li>
+              <li class="dropdown-item" data-value="ai-ml">🤖 AI & Machine Learning Automation</li>
+              <li class="dropdown-item" data-value="cloud">☁️ Cloud Infrastructure & DevOps</li>
+            </ul>
+          </div>
+          <div id="dropdown-result" class="dropdown-result" style="display: none;"></div>
+        </div>
+
+        <!-- Accessible Modal Card -->
+        <div class="card">
+          <h2 class="card-title"><span>🪟</span> Accessible Modal Window</h2>
+          <p class="card-subtitle">Accessible overlay dialog supporting backdrop dismiss, focus trapping, and ESC key shortcut.</p>
+          <button class="btn-primary" id="open-modal-btn">Launch Modal Dialog ↗</button>
+        </div>
+
+        <!-- Interactive State Counter -->
+        <div class="card">
+          <h2 class="card-title"><span>🔢</span> Interactive State Counter</h2>
+          <p class="card-subtitle">Real-time state mutations using vanilla event listeners.</p>
+          <div class="counter-box">
+            <button class="counter-btn" id="counter-dec" aria-label="Decrease counter">-</button>
+            <div class="counter-val" id="counter-val">0</div>
+            <button class="counter-btn" id="counter-inc" aria-label="Increase counter">+</button>
+            <button class="theme-btn" id="counter-reset" style="margin-left: auto;">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Real-Time Form Validation Suite -->
+      <section>
+        <div class="card">
+          <h2 class="card-title"><span>🛡️</span> Real-Time Form Validation</h2>
+          <p class="card-subtitle">Comprehensive validation checking format, length, live password strength, and field matching.</p>
+
+          <form id="validation-form" novalidate>
+            <!-- Full Name -->
+            <div class="form-field">
+              <label for="field-name" class="form-label">Full Name</label>
+              <div class="form-input-wrap">
+                <input type="text" id="field-name" class="form-input" placeholder="e.g. Kiran Kakade" autocomplete="name">
+              </div>
+              <div class="error-text" id="error-name"></div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-field">
+              <label for="field-email" class="form-label">Email Address</label>
+              <div class="form-input-wrap">
+                <input type="email" id="field-email" class="form-input" placeholder="name@company.com" autocomplete="email">
+              </div>
+              <div class="error-text" id="error-email"></div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-field">
+              <label for="field-phone" class="form-label">Contact Phone Number</label>
+              <div class="form-input-wrap">
+                <input type="tel" id="field-phone" class="form-input" placeholder="e.g. 9876543210" autocomplete="tel">
+              </div>
+              <div class="error-text" id="error-phone"></div>
+            </div>
+
+            <!-- Password & Strength Meter -->
+            <div class="form-field">
+              <label for="field-pass" class="form-label">Password</label>
+              <div class="form-input-wrap">
+                <input type="password" id="field-pass" class="form-input" placeholder="••••••••" autocomplete="new-password">
+              </div>
+              <div class="strength-container">
+                <div class="strength-bar">
+                  <div class="strength-fill" id="strength-fill"></div>
+                </div>
+                <div class="strength-text">
+                  <span style="color: var(--text-muted);">Strength:</span>
+                  <span id="strength-label">None</span>
+                </div>
+              </div>
+              <ul class="rules-list">
+                <li class="rule-item" id="rule-length"><span>●</span> At least 8 characters</li>
+                <li class="rule-item" id="rule-upper"><span>●</span> Uppercase & lowercase</li>
+                <li class="rule-item" id="rule-number"><span>●</span> At least 1 number</li>
+                <li class="rule-item" id="rule-special"><span>●</span> Special symbol (!@#$)</li>
+              </ul>
+              <div class="error-text" id="error-pass"></div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-field">
+              <label for="field-confirm-pass" class="form-label">Confirm Password</label>
+              <div class="form-input-wrap">
+                <input type="password" id="field-confirm-pass" class="form-input" placeholder="••••••••" autocomplete="new-password">
+              </div>
+              <div class="error-text" id="error-confirm-pass"></div>
+            </div>
+
+            <!-- Terms Checkbox -->
+            <div class="form-field" style="display: flex; align-items: flex-start; gap: 10px; margin-top: 24px;">
+              <input type="checkbox" id="field-terms" style="margin-top: 4px; accent-color: var(--primary);">
+              <label for="field-terms" style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer;">
+                I acknowledge that all submitted data complies with Codveda Internship policies and guidelines.
+              </label>
+            </div>
+            <div class="error-text" id="error-terms" style="margin-top: -12px; margin-bottom: 16px;"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 13px;">
+              Register Account 🚀
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal Dialog Backdrop -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">✨ Codveda Interactive Dialog</h3>
+        <button class="modal-close" id="close-modal-btn" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>This modal dialog is powered entirely by Vanilla JavaScript event listeners. It includes keyboard accessibility (press <strong>Esc</strong> key to exit) and backdrop blur styling.</p>
+        <p style="margin-top: 12px;">You can trigger notifications, update application state, and manage overlay workflows with clean, modular code.</p>
+      </div>
+      <div style="text-align: right;">
+        <button class="btn-primary" onclick="document.getElementById('modal-backdrop').classList.remove('show'); document.body.style.overflow = '';">Got It!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-box" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

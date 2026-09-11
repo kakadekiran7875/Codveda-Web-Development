@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Codveda Technology</title>
+  <meta name="description" content="Get in touch with the Codveda team for software consulting, web development, and digital transformation inquiries.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-badge">C</div>
+        <span>Codveda Tech</span>
+      </a>
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation menu">☰</button>
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+          <li><a href="contact.html" class="nav-btn">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="section" style="padding: 70px 0 40px; background: var(--color-gray-100);">
+      <div class="container" style="text-align: center;">
+        <span class="section-badge">Get In Touch</span>
+        <h1 class="section-title">How to Contact Us?</h1>
+        <p class="section-subtitle" style="max-width: 650px; margin: 0 auto;">For additional information, partnerships, or project consultations, kindly get in touch with our team.</p>
+      </div>
+    </section>
+
+    <!-- Contact Form & Details Section -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-wrapper">
+          <!-- Info Panel -->
+          <div class="contact-info-panel">
+            <div>
+              <h3>Connect With Codveda</h3>
+              <p style="color: #cbd5e1; margin-bottom: 32px; font-size: 0.98rem;">Reach out through our verified channels. We reply promptly within 24 business hours.</p>
+              
+              <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div>
+                  <div style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Email Us</div>
+                  <div style="font-weight: 600;">support@codveda.com</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">🌐</div>
+                <div>
+                  <div style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Website</div>
+                  <div style="font-weight: 600;">www.codveda.com</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">💼</div>
+                <div>
+                  <div style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">LinkedIn</div>
+                  <div style="font-weight: 600;">@codveda</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 20px; font-size: 0.88rem; color: #94a3b8;">
+              📍 Codveda Technology Innovation Hub
+            </div>
+          </div>
+
+          <!-- Contact Form Panel -->
+          <div class="contact-form-panel">
+            <h3 style="font-size: 1.6rem; margin-bottom: 8px; color: var(--color-dark);">Send Us a Message</h3>
+            <p style="color: var(--color-gray-600); margin-bottom: 28px; font-size: 0.95rem;">Fill in the form below and our team will get in touch promptly.</p>
+            
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-control" placeholder="e.g. Kiran Kakade" required>
+              </div>
+
+              <div class="form-group">
+                <label for="emailAddress">Email Address</label>
+                <input type="email" id="emailAddress" class="form-control" placeholder="name@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="serviceSelect">Service of Interest</label>
+                <select id="serviceSelect" class="form-control" required>
+                  <option value="" disabled selected>Select a Service</option>
+                  <option value="web">Web Development</option>
+                  <option value="app">App Development</option>
+                  <option value="ai">AI/ML Automation</option>
+                  <option value="data">Data Analysis</option>
+                  <option value="marketing">Digital Marketing</option>
+                  <option value="seo">SEO Optimization</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="messageBody">Project Details / Message</label>
+                <textarea id="messageBody" class="form-control" placeholder="Describe your project requirements or question..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Message</button>
+
+              <div id="success-message" class="form-success-message">
+                ✓ Thank you! Your message has been received. Our team will contact you shortly.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Codveda Technology. All rights reserved.</p>
+        <p>Codveda Web Development Internship Project | Level 1 Task 1</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
