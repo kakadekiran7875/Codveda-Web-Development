@@ -50,4 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 700);
     });
   }
+
+  // Top Scroll Progress Bar Updater
+  const progressBar = document.getElementById('scroll-progress-bar');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollTotal > 0) {
+        const percent = (window.pageYOffset / scrollTotal) * 100;
+        progressBar.style.width = `${percent}%`;
+      }
+    });
+  }
 });

@@ -61,6 +61,49 @@
             <button class="theme-btn" id="counter-reset" style="margin-left: auto;">Reset</button>
           </div>
         </div>
+
+        <!-- Interactive Toast Notification Station -->
+        <div class="card">
+          <h2 class="card-title"><span>🔔</span> Live Toast Notification Dispatcher</h2>
+          <p class="card-subtitle">Generate dynamic floating toast notices with auto-dismiss timers and icon badges.</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
+            <button type="button" class="toast-btn success" id="toast-success-btn">✓ Success Toast</button>
+            <button type="button" class="toast-btn error" id="toast-error-btn">✕ Error Toast</button>
+            <button type="button" class="toast-btn warning" id="toast-warning-btn">⚠️ Warning Toast</button>
+            <button type="button" class="toast-btn info" id="toast-info-btn">ℹ️ Info Toast</button>
+          </div>
+        </div>
+
+        <!-- Interactive Tab Component -->
+        <div class="card">
+          <h2 class="card-title"><span>📑</span> Interactive Tab Navigator</h2>
+          <p class="card-subtitle">Declarative tab content switcher with animated active states.</p>
+          <div class="tabs-header" id="tabs-header">
+            <button class="tab-btn active" data-tab="dom">DOM Traversal</button>
+            <button class="tab-btn" data-tab="events">Event Loop</button>
+            <button class="tab-btn" data-tab="validation">Form Security</button>
+          </div>
+          <div class="tab-body" id="tab-body">
+            <div class="tab-panel active" id="panel-dom">
+              <h4 style="margin-bottom: 6px; color: var(--text-main);">Direct DOM Manipulation</h4>
+              <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6;">
+                Using <code>document.querySelector()</code>, <code>classList.toggle()</code>, and programmatic element rendering allows for high performance without virtual DOM overhead.
+              </p>
+            </div>
+            <div class="tab-panel" id="panel-events" style="display: none;">
+              <h4 style="margin-bottom: 6px; color: var(--text-main);">Asynchronous Event Handling</h4>
+              <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6;">
+                Event delegation, non-blocking asynchronous timers, and microtask queues guarantee responsive user interfaces across complex interaction workflows.
+              </p>
+            </div>
+            <div class="tab-panel" id="panel-validation" style="display: none;">
+              <h4 style="margin-bottom: 6px; color: var(--text-main);">Real-time Client-side Verification</h4>
+              <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6;">
+                Immediate input feedback with RegEx pattern validation, password entropy calculators, and accessible ARIA attributes enhances UX and security posture.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Right Column: Real-Time Form Validation Suite -->

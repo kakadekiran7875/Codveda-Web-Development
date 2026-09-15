@@ -3,8 +3,12 @@
 [![Codveda Technology](https://img.shields.io/badge/Codveda-Web%20Development%20Internship-00C49F?style=for-the-badge&logo=codeigniter&logoColor=white)](https://www.codveda.com)
 [![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)](https://github.com)
 [![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20|%20CSS3%20|%20JavaScript%20|%20React%20|%20Node.js%20|%20Express%20|%20MongoDB-blue?style=for-the-badge)](https://github.com)
+[![Internship Report PDF](https://img.shields.io/badge/Internship%20Report-Download%20PDF-8b5cf6?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](./Codveda_Web_Development_Internship_Report.pdf)
 
 Welcome to the official GitHub repository for my **Web Development Internship** at **Codveda Technology**. This repository contains modular, production-ready implementations of all tasks specified in the official **Codveda Web Development Task List**, organized systematically across three progressive levels: Basic, Intermediate, and Advanced.
+
+> 📄 **Official Submission Report**: You can view the comprehensive level-wise PDF report here: [**Codveda_Web_Development_Internship_Report.pdf**](./Codveda_Web_Development_Internship_Report.pdf) (or view the [HTML Version](./Codveda_Web_Development_Internship_Report.html)).
+
 
 ---
 

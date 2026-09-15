@@ -48,10 +48,10 @@
           <input type="text" id="task-title" class="form-control" placeholder="What task needs to be completed?" required>
           
           <select id="task-category" class="form-control">
-            <option value="Internship">Codveda Internship</option>
-            <option value="Frontend">Frontend Dev</option>
-            <option value="Backend">Backend Dev</option>
-            <option value="Personal">Personal</option>
+            <option value="Internship">🎓 Codveda Internship</option>
+            <option value="Frontend">🎨 Frontend Dev</option>
+            <option value="Backend">⚙️ Backend Dev</option>
+            <option value="Personal">☕ Personal</option>
           </select>
 
           <select id="task-priority" class="form-control">
@@ -60,12 +60,21 @@
             <option value="high">🔴 High Priority</option>
           </select>
 
-          <input type="date" id="task-due-date" class="form-control" style="display: none;">
+          <input type="date" id="task-due-date" class="form-control" title="Optional due date">
 
           <button type="submit" class="btn-add">+ Add Task</button>
         </div>
       </form>
     </section>
+
+    <!-- Category Filter Pills -->
+    <div class="category-filter-chips" id="category-filter-chips">
+      <button class="cat-chip active" data-cat="all">All Categories</button>
+      <button class="cat-chip" data-cat="Internship">🎓 Codveda Internship</button>
+      <button class="cat-chip" data-cat="Frontend">🎨 Frontend</button>
+      <button class="cat-chip" data-cat="Backend">⚙️ Backend</button>
+      <button class="cat-chip" data-cat="Personal">☕ Personal</button>
+    </div>
 
     <!-- Controls Bar -->
     <div class="controls-bar">
@@ -75,8 +84,11 @@
         <button class="filter-btn" data-filter="completed">Completed</button>
       </div>
 
-      <div style="display: flex; gap: 12px; align-items: center;">
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
         <input type="text" id="search-tasks" class="search-input" placeholder="🔍 Search tasks...">
+        <button id="export-tasks-btn" class="filter-btn" title="Export tasks to JSON file">
+          📥 Export
+        </button>
         <button id="clear-completed-btn" class="filter-btn" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
           Clear Completed
         </button>

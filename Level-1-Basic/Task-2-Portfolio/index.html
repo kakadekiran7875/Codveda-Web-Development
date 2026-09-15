@@ -322,9 +322,14 @@
           <div style="display: flex; flex-direction: column; gap: 16px;">
             <div style="display: flex; align-items: center; gap: 14px;">
               <span style="font-size: 1.4rem;">📧</span>
-              <div>
+              <div style="flex-grow: 1;">
                 <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase;">Email</div>
-                <div style="color: white; font-weight: 600;">kiran.kakade@example.com</div>
+                <div style="color: white; font-weight: 600; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                  <span id="dev-email-text">kiran.kakade@example.com</span>
+                  <button type="button" id="copy-email-btn" class="mini-copy-btn" title="Copy email to clipboard">
+                    📋 Copy
+                  </button>
+                </div>
               </div>
             </div>
 

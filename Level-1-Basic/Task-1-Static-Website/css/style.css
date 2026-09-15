@@ -59,6 +59,18 @@ body {
   min-height: 100vh;
 }
 
+/* Scroll Progress Indicator Bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
 /* Container */
 .container {
   width: 100%;

@@ -94,14 +94,99 @@ const CITY_DATABASE = {
       { day: 'Tue', condition: 'Sunny', icon: '☀️', maxTemp: 26, minTemp: 19 },
       { day: 'Wed', condition: 'Partly Cloudy', icon: '⛅', maxTemp: 24, minTemp: 18 },
     ]
+  },
+  paris: {
+    city: 'Paris',
+    country: 'France',
+    localTime: '13:00 CEST',
+    temperature: 20,
+    feelsLike: 19,
+    condition: 'Sunny & Breezy',
+    icon: '☀️',
+    description: 'Pleasant afternoon with clear blue skies across Île-de-France',
+    humidity: 50,
+    windSpeed: 12,
+    uvIndex: 4,
+    uvText: 'Moderate',
+    pressure: 1018,
+    forecast: [
+      { day: 'Sat', condition: 'Sunny', icon: '☀️', maxTemp: 22, minTemp: 14 },
+      { day: 'Sun', condition: 'Partly Cloudy', icon: '⛅', maxTemp: 21, minTemp: 13 },
+      { day: 'Mon', condition: 'Showers', icon: '🌦️', maxTemp: 18, minTemp: 12 },
+      { day: 'Tue', condition: 'Clear', icon: '🌤️', maxTemp: 23, minTemp: 15 },
+      { day: 'Wed', condition: 'Sunny', icon: '☀️', maxTemp: 24, minTemp: 15 },
+    ]
+  },
+  dubai: {
+    city: 'Dubai',
+    country: 'United Arab Emirates',
+    localTime: '15:00 GST',
+    temperature: 38,
+    feelsLike: 44,
+    condition: 'Extreme Sun',
+    icon: '☀️',
+    description: 'Hot desert winds with high thermal index across the city',
+    humidity: 45,
+    windSpeed: 20,
+    uvIndex: 11,
+    uvText: 'Extreme',
+    pressure: 1008,
+    forecast: [
+      { day: 'Sat', condition: 'Sunny', icon: '☀️', maxTemp: 39, minTemp: 30 },
+      { day: 'Sun', condition: 'Clear', icon: '🌤️', maxTemp: 38, minTemp: 29 },
+      { day: 'Mon', condition: 'Hazy Sun', icon: '☀️', maxTemp: 40, minTemp: 31 },
+      { day: 'Tue', condition: 'Sunny', icon: '☀️', maxTemp: 39, minTemp: 30 },
+      { day: 'Wed', condition: 'Clear', icon: '☀️', maxTemp: 41, minTemp: 32 },
+    ]
+  },
+  sydney: {
+    city: 'Sydney',
+    country: 'Australia',
+    localTime: '21:00 AEST',
+    temperature: 16,
+    feelsLike: 15,
+    condition: 'Crisp & Clear',
+    icon: '🌙',
+    description: 'Starlit evening with south-easterly oceanic breezes',
+    humidity: 60,
+    windSpeed: 15,
+    uvIndex: 0,
+    uvText: 'Low',
+    pressure: 1022,
+    forecast: [
+      { day: 'Sat', condition: 'Sunny', icon: '☀️', maxTemp: 20, minTemp: 12 },
+      { day: 'Sun', condition: 'Cloudy', icon: '☁️', maxTemp: 18, minTemp: 11 },
+      { day: 'Mon', condition: 'Rain', icon: '🌧️', maxTemp: 16, minTemp: 10 },
+      { day: 'Tue', condition: 'Clear', icon: '🌤️', maxTemp: 21, minTemp: 13 },
+      { day: 'Wed', condition: 'Sunny', icon: '☀️', maxTemp: 22, minTemp: 14 },
+    ]
   }
 };
+
+const FEATURED_CITIES = [
+  { name: 'Mumbai', flag: '🇮🇳' },
+  { name: 'London', flag: '🇬🇧' },
+  { name: 'New York', flag: '🇺🇸' },
+  { name: 'Tokyo', flag: '🇯🇵' },
+  { name: 'Paris', flag: '🇫🇷' },
+  { name: 'Dubai', flag: '🇦🇪' },
+  { name: 'Sydney', flag: '🇦🇺' }
+];
 
 export default function App() {
   const [currentCityKey, setCurrentCityKey] = useState('mumbai');
   const [weatherData, setWeatherData] = useState(CITY_DATABASE.mumbai);
   const [unit, setUnit] = useState('C'); // 'C' or 'F'
   const [recentSearches, setRecentSearches] = useState(['Mumbai', 'London', 'New York', 'Tokyo']);
+
+  const getConditionTheme = (cond) => {
+    const c = (cond || '').toLowerCase();
+    if (c.includes('rain') || c.includes('shower')) return 'theme-rain';
+    if (c.includes('sun') || c.includes('clear')) return 'theme-sunny';
+    if (c.includes('thunder') || c.includes('storm')) return 'theme-storm';
+    if (c.includes('cloud') || c.includes('overcast')) return 'theme-cloudy';
+    return 'theme-default';
+  };
 
   const handleSearch = (cityName) => {
     const key = cityName.toLowerCase().replace(/\s+/g, '');
@@ -147,7 +232,7 @@ export default function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${getConditionTheme(weatherData.condition)}`}>
       {/* App Header */}
       <header className="app-header">
         <div className="brand-wrap">
@@ -176,6 +261,24 @@ export default function App() {
           </button>
         </div>
       </header>
+
+      {/* Featured Cities Quick-Pill Bar */}
+      <div className="featured-cities-bar">
+        <span className="featured-label">Featured Hubs:</span>
+        <div className="featured-chips-row">
+          {FEATURED_CITIES.map((item) => (
+            <button
+              key={item.name}
+              type="button"
+              className={`featured-city-chip ${weatherData.city.toLowerCase() === item.name.toLowerCase() ? 'active' : ''}`}
+              onClick={() => handleSearch(item.name)}
+            >
+              <span>{item.flag}</span>
+              <span>{item.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
       <main>
         {/* Search Input Bar Component */}

@@ -31,4 +31,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Live Viewport Breakpoint Observer
+  const vpWidthEl = document.getElementById('vp-width');
+  const vpDeviceEl = document.getElementById('vp-device');
+  const vpLayoutEl = document.getElementById('vp-layout');
+
+  function updateViewport() {
+    const width = window.innerWidth;
+    if (vpWidthEl) vpWidthEl.textContent = `${width}px`;
+
+    if (vpDeviceEl) {
+      if (width < 640) {
+        vpDeviceEl.textContent = '📱 Mobile Phone';
+        if (vpLayoutEl) vpLayoutEl.textContent = '1-Col Stack';
+      } else if (width < 1024) {
+        vpDeviceEl.textContent = '📱 Tablet View';
+        if (vpLayoutEl) vpLayoutEl.textContent = 'Adaptive 2-Col';
+      } else {
+        vpDeviceEl.textContent = '💻 Desktop Screen';
+        if (vpLayoutEl) vpLayoutEl.textContent = '12-Col CSS Grid';
+      }
+    }
+  }
+
+  window.addEventListener('resize', updateViewport);
+  updateViewport();
 });
+

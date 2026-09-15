@@ -706,6 +706,25 @@ textarea.form-input {
   resize: vertical;
 }
 
+/* Mini Copy Button */
+.mini-copy-btn {
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--accent-cyan);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mini-copy-btn:hover {
+  background: var(--accent-cyan);
+  color: #080d1a;
+  transform: translateY(-1px);
+}
+
 /* Footer */
 .footer {
   padding: 40px 0;

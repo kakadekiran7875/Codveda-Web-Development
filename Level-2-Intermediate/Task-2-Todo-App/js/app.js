@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // State
   let tasks = loadTasks();
   let currentFilter = 'all';
+  let currentCategory = 'all';
   let searchQuery = '';
   let editingTaskId = null;
 
@@ -22,8 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskListEl = document.getElementById('task-list');
   const emptyStateEl = document.getElementById('empty-state');
   const searchInput = document.getElementById('search-tasks');
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  const filterBtns = document.querySelectorAll('.filter-btn:not(#export-tasks-btn):not(#clear-completed-btn)');
   const clearCompletedBtn = document.getElementById('clear-completed-btn');
+  const exportTasksBtn = document.getElementById('export-tasks-btn');
+  const catChips = document.querySelectorAll('.cat-chip');
 
   // Stats Elements
   const totalTasksEl = document.getElementById('stat-total');
@@ -68,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. TOGGLE COMPLETE, DELETE, EDIT (Event Delegation)
+  // 2. TASK LIST DELEGATION (Toggle complete, Delete, Edit)
   if (taskListEl) {
     taskListEl.addEventListener('click', (e) => {
       const target = e.target;
@@ -79,14 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Checkbox click
       if (target.classList.contains('task-checkbox')) {
         toggleTaskCompletion(taskId);
+        return;
       }
 
-      // Delete action
+      // Delete button click
       if (target.closest('.action-btn.delete')) {
         deleteTask(taskId);
+        return;
       }
 
-      // Edit action
+      // Edit button click
       if (target.closest('.action-btn.edit')) {
         openEditModal(taskId);
       }
@@ -153,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. FILTERING & SEARCH
+  // 4. FILTERING, CATEGORY CHIPS & SEARCH
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -163,10 +168,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  catChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      catChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentCategory = chip.getAttribute('data-cat');
+      render();
+    });
+  });
+
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
       render();
+    });
+  }
+
+  if (exportTasksBtn) {
+    exportTasksBtn.addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `taskflow_backup_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
     });
   }
 
@@ -184,12 +210,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. RENDER FUNCTION
   function render() {
-    // Filter tasks
+    // Filter tasks by status
     let filtered = tasks.filter(t => {
       if (currentFilter === 'active') return !t.completed;
       if (currentFilter === 'completed') return t.completed;
       return true;
     });
+
+    // Filter by category
+    if (currentCategory !== 'all') {
+      filtered = filtered.filter(t => t.category.toLowerCase() === currentCategory.toLowerCase());
+    }
 
     if (searchQuery) {
       filtered = filtered.filter(t => 

@@ -496,6 +496,68 @@ body {
   animation: slideInRight 0.3s ease;
 }
 
+.toast.toast-success { border-color: var(--success); }
+.toast.toast-error { border-color: var(--danger); }
+.toast.toast-warning { border-color: var(--warning); }
+.toast.toast-info { border-color: var(--primary); }
+
+/* Interactive Toast Trigger Buttons */
+.toast-btn {
+  padding: 7px 14px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-app);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.toast-btn:hover {
+  transform: translateY(-2px);
+}
+
+.toast-btn.success:hover { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+.toast-btn.error:hover { background: var(--danger-bg); border-color: var(--danger); color: var(--danger); }
+.toast-btn.warning:hover { background: var(--warning-bg); border-color: var(--warning); color: var(--warning); }
+.toast-btn.info:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+
+/* Tabs Component */
+.tabs-header {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-color);
+  margin-top: 14px;
+  padding-bottom: 2px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  font-weight: 700;
+}
+
+.tab-body {
+  padding: 16px 0 4px;
+}
+
 @keyframes slideInRight {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -506,3 +568,4 @@ body {
     grid-template-columns: 1fr;
   }
 }
+

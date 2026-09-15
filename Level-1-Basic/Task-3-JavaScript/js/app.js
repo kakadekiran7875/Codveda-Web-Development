@@ -320,17 +320,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. TOAST NOTIFICATION GENERATOR
+  // 6. INTERACTIVE TOAST BUTTONS
+  const toastSuccessBtn = document.getElementById('toast-success-btn');
+  const toastErrorBtn = document.getElementById('toast-error-btn');
+  const toastWarningBtn = document.getElementById('toast-warning-btn');
+  const toastInfoBtn = document.getElementById('toast-info-btn');
+
+  if (toastSuccessBtn) toastSuccessBtn.addEventListener('click', () => showToast('Operation completed successfully! ✨', 'success'));
+  if (toastErrorBtn) toastErrorBtn.addEventListener('click', () => showToast('Network request encountered an error.', 'error'));
+  if (toastWarningBtn) toastWarningBtn.addEventListener('click', () => showToast('Warning: Storage limit approaching 90%.', 'warning'));
+  if (toastInfoBtn) toastInfoBtn.addEventListener('click', () => showToast('Latest task updates synced with cloud.', 'info'));
+
+  // 7. INTERACTIVE TAB SWITCHER
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
+
+      btn.classList.add('active');
+      const targetId = `panel-${btn.getAttribute('data-tab')}`;
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.style.display = 'block';
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // 8. TOAST NOTIFICATION GENERATOR
   function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
     if (!container) return;
 
     const toast = document.createElement('div');
-    toast.className = 'toast';
+    toast.className = `toast toast-${type}`;
     
     let icon = 'ℹ️';
     if (type === 'success') icon = '✅';
     if (type === 'error') icon = '❌';
+    if (type === 'warning') icon = '⚠️';
 
     toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
     container.appendChild(toast);

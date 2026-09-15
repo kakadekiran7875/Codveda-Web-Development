@@ -85,4 +85,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 750);
     });
   }
+
+  // One-Click Email Copy Trigger
+  const copyEmailBtn = document.getElementById('copy-email-btn');
+  const emailTextEl = document.getElementById('dev-email-text');
+
+  if (copyEmailBtn && emailTextEl) {
+    copyEmailBtn.addEventListener('click', () => {
+      const email = emailTextEl.textContent.trim();
+      navigator.clipboard.writeText(email).then(() => {
+        const originalText = copyEmailBtn.textContent;
+        copyEmailBtn.textContent = '✓ Copied!';
+        copyEmailBtn.style.background = 'var(--accent-emerald)';
+        copyEmailBtn.style.color = '#064e3b';
+        copyEmailBtn.style.borderColor = 'var(--accent-emerald)';
+
+        setTimeout(() => {
+          copyEmailBtn.textContent = originalText;
+          copyEmailBtn.style.background = '';
+          copyEmailBtn.style.color = '';
+          copyEmailBtn.style.borderColor = '';
+        }, 2500);
+      }).catch(err => {
+        console.warn('Clipboard write failed', err);
+      });
+    });
+  }
 });

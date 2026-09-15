@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PostCard from './components/PostCard';
+import TableView from './components/TableView';
+import StatsOverview from './components/StatsOverview';
 import PostModal from './components/PostModal';
 import PostDetailModal from './components/PostDetailModal';
 import FilterBar from './components/FilterBar';
@@ -12,6 +14,8 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'table'
+  const [sortBy, setSortBy] = useState('newest'); // 'newest', 'upvotes', 'title'
   
   // Modals state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +67,18 @@ export default function App() {
           author: 'Kiran Kakade',
           readTime: '4 min read',
           upvotes: 18,
+          createdAt: new Date().toISOString()
+        },
+        {
+          _id: '3',
+          title: 'Secure JWT Authentication & Refresh Tokens',
+          excerpt: 'Implementing robust security practices with salted bcrypt hashes and JSON Web Tokens.',
+          content: 'Secure modern web applications by safeguarding user passwords using 10 rounds of bcrypt salting, signing JWT payloads with expiration lifetimes, and providing stateless token verification.',
+          category: 'Backend',
+          tags: ['Security', 'JWT', 'Bcrypt', 'Node.js'],
+          author: 'Kiran Kakade',
+          readTime: '6 min read',
+          upvotes: 31,
           createdAt: new Date().toISOString()
         }
       ]);
@@ -147,6 +163,13 @@ export default function App() {
     }
   };
 
+  // Filtered and sorted list
+  const displayedPosts = [...posts].sort((a, b) => {
+    if (sortBy === 'upvotes') return (b.upvotes || 0) - (a.upvotes || 0);
+    if (sortBy === 'title') return a.title.localeCompare(b.title);
+    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+  });
+
   return (
     <div className="container">
       {/* Top Header */}
@@ -168,6 +191,13 @@ export default function App() {
         </button>
       </header>
 
+      {/* Interactive Metric Summary Cards */}
+      <StatsOverview
+        posts={posts}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
+
       {/* Filter and Search Bar */}
       <FilterBar
         selectedCategory={selectedCategory}
@@ -176,21 +206,85 @@ export default function App() {
         onSearchChange={setSearchQuery}
       />
 
-      {/* Articles Grid */}
+      {/* View & Sort Controls Bar */}
+      <div className="view-controls-bar">
+        <div className="results-count">
+          Showing <strong>{displayedPosts.length}</strong> {displayedPosts.length === 1 ? 'article' : 'articles'}
+          {selectedCategory !== 'All' && <span className="active-filter-tag">in {selectedCategory}</span>}
+        </div>
+
+        <div className="controls-right">
+          {/* Sort By Dropdown */}
+          <div className="sort-wrapper">
+            <label htmlFor="sort-select" className="sort-label">Sort:</label>
+            <select
+              id="sort-select"
+              className="sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="newest">🕒 Newest First</option>
+              <option value="upvotes">🔥 Most Upvoted</option>
+              <option value="title">🔤 Title (A-Z)</option>
+            </select>
+          </div>
+
+          {/* View Mode Toggle */}
+          <div className="view-mode-toggle">
+            <button
+              type="button"
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+              title="Grid View"
+            >
+              <span className="view-icon">⊞</span> Grid
+            </button>
+            <button
+              type="button"
+              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+              onClick={() => setViewMode('table')}
+              title="Table View"
+            >
+              <span className="view-icon">☰</span> Table
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Articles Display */}
       <main>
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
-            <p style={{ fontSize: '1.2rem' }}>⚡ Loading articles from REST API...</p>
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p style={{ fontSize: '1.2rem', marginTop: '14px' }}>⚡ Loading articles from REST API...</p>
           </div>
-        ) : posts.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '80px 20px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px dashed var(--border)' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>📚</div>
-            <h3 style={{ color: 'white', marginBottom: '6px' }}>No Articles Found</h3>
-            <p style={{ color: 'var(--text-muted)' }}>No articles match your category or search query.</p>
+        ) : displayedPosts.length === 0 ? (
+          <div className="empty-articles-card">
+            <div style={{ fontSize: '3rem', marginBottom: '12px' }}>📚</div>
+            <h3 style={{ color: 'white', marginBottom: '8px', fontSize: '1.4rem' }}>No Articles Found</h3>
+            <p style={{ color: 'var(--text-muted)' }}>
+              No articles match your category or search query. Try choosing another filter or writing a new article!
+            </p>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ marginTop: '16px' }}
+              onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
+            >
+              Reset Filters
+            </button>
           </div>
+        ) : viewMode === 'table' ? (
+          <TableView
+            posts={displayedPosts}
+            onEdit={(p) => { setEditingPost(p); setIsModalOpen(true); }}
+            onDelete={handleDeletePost}
+            onUpvote={handleUpvotePost}
+            onOpenDetail={(p) => setViewingPost(p)}
+          />
         ) : (
           <div className="posts-grid">
-            {posts.map((post) => (
+            {displayedPosts.map((post) => (
               <PostCard
                 key={post._id}
                 post={post}
